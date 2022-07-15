@@ -8,22 +8,13 @@ import FilmDisplay from "./FilmDisplay";
 
 const App = () => {
   const [data, setData] = useState(0);
-  const [apiResult, setApiResult] = useState("");
-
-  useEffect(() => {
-    fetch("https://ghibliapi.herokuapp.com/films")
-      .then((res) => res.json())
-      .then((data) => setApiResult(data));
-  }, []);
-
-  const dataContainer = {
-    data,
-    setData,
-  };
+  const [apiResult, setApiResult] = useState([]);
 
   const dataInfo = "Hello";
 
-  // api call
+  const getArray = (arr) => {
+    setApiResult(arr);
+  };
 
   return (
     <Context.Provider
@@ -31,6 +22,7 @@ const App = () => {
         data,
         setData,
         dataInfo,
+        getArray,
         apiResult,
       }}
     >
@@ -40,6 +32,7 @@ const App = () => {
           <Route path="/" element={<Main />} />
           <Route path="/films" element={<Films />} />
           <Route path="/films/:id" element={<FilmDisplay />} />
+          <Route path="*" element={<h1>something went wrong</h1>} />
         </Routes>
       </div>
     </Context.Provider>
