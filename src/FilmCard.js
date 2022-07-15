@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 
 const FilmCard = ({ image, title, description, id }) => {
   return (
-    <div className="basis-[32.5%] flex-grow-0 flex-shrink-0 overflow-hidden">
+    <div className="basis-[33.3%] flex-grow-0 flex-shrink-0 ">
       <img className="w-[60%] m-auto" src={image} />
       <h1 className="py-2 font-bold text-4xl text-orange-900  ">{title}</h1>
       <p className="text-emerald-900 phone-font">

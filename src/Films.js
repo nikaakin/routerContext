@@ -8,13 +8,12 @@ const Films = () => {
   const { apiResult } = useContext(Context);
 
   return (
-    <div className=" w-[90%] m-auto relative ">
+    <div className="  w-[95%] m-auto relative overflow-hidden ">
       <br></br>
 
       <div
-        className={`flex gap-3 ease-in duration-500  translate-x-[-${
-          (sliderButton - 1) * 100
-        }%] `}
+        className={`flex gap-3 ease duration-500  `}
+        style={{ transform: `translate(-${(sliderButton - 1) * 100}%, 0)` }}
       >
         {apiResult.map((res) => {
           return (
