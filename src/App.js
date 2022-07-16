@@ -5,12 +5,18 @@ import Films from "./Films";
 import Context from "./Contex";
 import { useState, useEffect } from "react";
 import FilmDisplay from "./FilmDisplay";
+import Watchlist from "./Watchlist";
 
 const App = () => {
   const [data, setData] = useState(0);
   const [apiResult, setApiResult] = useState([]);
+  const [watchlist, setWatchlist] = useState([]);
 
-  const dataInfo = "Hello";
+  useEffect(() => {
+    if (window.localStorage.getItem("watchlist")) {
+      setWatchlist(JSON.parse(window.localStorage.getItem("watchlist")));
+    }
+  }, []);
 
   const getArray = (arr) => {
     setApiResult(arr);
@@ -21,9 +27,11 @@ const App = () => {
       value={{
         data,
         setData,
-        dataInfo,
+
         getArray,
         apiResult,
+        watchlist,
+        setWatchlist,
       }}
     >
       <div>
@@ -33,6 +41,7 @@ const App = () => {
           <Route path="/films" element={<Films />} />
           <Route path="/films/:id" element={<FilmDisplay />} />
           <Route path="*" element={<h1>something went wrong</h1>} />
+          <Route path="/watchlist" element={<Watchlist />} />
         </Routes>
       </div>
     </Context.Provider>

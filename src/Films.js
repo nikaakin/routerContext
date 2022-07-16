@@ -1,12 +1,16 @@
 import Context from "./Contex";
 import { useContext, useState, useEffect } from "react";
 import FilmCard from "./FilmCard";
+import MyLoader from "./Loader";
 
 const Films = () => {
   const [sliderButton, setSliderButton] = useState(1);
   const [apiResult, setApiResult] = useState([]);
   const [searchFinal, setSearchFinal] = useState("");
   const [search, setSearch] = useState("");
+
+  // loader
+  const [isLoading, setIsLoading] = useState(true);
 
   const { getArray } = useContext(Context);
 
@@ -16,6 +20,7 @@ const Films = () => {
       .then((data) => {
         setApiResult(data);
         getArray(data);
+        setIsLoading(false);
       });
   }, []);
 
@@ -25,7 +30,9 @@ const Films = () => {
     });
 
     return filtered.map((res) => {
-      return (
+      return isLoading ? (
+        <MyLoader />
+      ) : (
         <FilmCard
           image={res.image}
           title={res.title}
@@ -63,17 +70,26 @@ const Films = () => {
         style={{ transform: `translate(-${(sliderButton - 1) * 100}%, 0)` }}
       >
         {!searchFinal
-          ? apiResult.map((res) => {
-              return (
-                <FilmCard
-                  image={res.image}
-                  title={res.title}
-                  description={res.description}
-                  id={res.id}
-                  key={res.id}
-                />
-              );
-            })
+          ? isLoading
+            ? [...new Array(3)].map((el, i) => {
+                return (
+                  <MyLoader
+                    key={i}
+                    className="basis-[33.3%] flex-grow-0 flex-shrink-0 "
+                  />
+                );
+              })
+            : apiResult.map((res) => {
+                return (
+                  <FilmCard
+                    image={res.image}
+                    title={res.title}
+                    description={res.description}
+                    id={res.id}
+                    key={res.id}
+                  />
+                );
+              })
           : filmFilter()}
       </div>
       <div className="flex justify-between">

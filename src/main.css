@@ -21,7 +21,7 @@ a {
 .active {
   background-color: crimson;
   border-radius: 2px;
-  padding: 8px;
+  padding: 0 10px;
   color: white;
 }
 
